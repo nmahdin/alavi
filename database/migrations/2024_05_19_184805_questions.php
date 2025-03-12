@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('questions', function (Blueprint $table) {
+            $table->id();
+            $table->integer('number');
+            $table->string('text');
+            $table->string('g1');
+            $table->string('g2');
+            $table->string('g3');
+            $table->string('g4');
+            $table->string('true');
+            $table->string('n_true')->default(0);
+            $table->string('n_false')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+    }
+};

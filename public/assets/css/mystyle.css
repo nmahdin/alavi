@@ -1,0 +1,13 @@
+::selection {
+    background: #229b69;
+    color: #ffffff;
+}
+
+.box-bg-info-link:hover {
+   /*background-color:  #058EFC;*/
+    color: #00436a !important;
+}
+
+.icon-m-left {
+    margin-right: 5px
+}
