@@ -1,6 +1,6 @@
 @extends('layouts.member.q')
 @section('title')
-    مسابقه غدیر
+    {{ \App\Models\AdminConfigs::where('name' , 'group_name')->first()->config }}
 @endsection
 
 @section('content')
