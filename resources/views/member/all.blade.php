@@ -6,7 +6,7 @@
 
 <?php
 use \App\Models\User;
-$n = User::count()
+$n = User::where('admin' , 0)->count()
 
 ?>
 
@@ -30,9 +30,11 @@ $n = User::count()
                             {{--                                </span>--}}
 
                             {{--                            @endif--}}
+                            @if($n != 0)
                             <div class="nk-block-des text-soft">
                                 <p>در مجموع {{ $n }} شرکت کننده وجود دارد</p>
                             </div>
+                            @endif
                         </div>
                         <!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
@@ -62,20 +64,21 @@ $n = User::count()
                     <div class="card card-stretch" data-select2-id="16">
                         <div class="card-inner-group" data-select2-id="15">
                             <!-- .card-inner -->
+                            @if($n == 0)
 
+                                <div class="alert alert-fill alert-warning alert-icon">
+                                    <em class="icon ni ni-alert-circle"></em>
+                                    <strong>شرکت کننده ای وجود ندارد</strong>
+                                </div>
+
+                            @endif
+                            @if($n !== 0)
                             <div class="card-inner p-0">
                                 <div class="nk-tb-list nk-tb-ulist">
 
-                                    @if($n == 0)
 
-                                        <div class="alert alert-fill alert-warning alert-icon">
-                                            <em class="icon ni ni-alert-circle"></em>
-                                            <strong>شرکت کننده ای وجود ندارد</strong>
-                                        </div>
 
-                                    @endif
 
-                                    @if($n !== 0)
 
                                             <div class="nk-tb-item nk-tb-head">
                                                 <div class="nk-tb-col tb-col-lg"><span class="sub-text q-head">نام کاربر</span> </div>
@@ -119,10 +122,11 @@ $n = User::count()
                                             </div>
                                             <!-- .nk-tb-item -->
                                         @endforeach
-                                    @endif
+
                                 </div>
                                 <!-- .nk-tb-list -->
                             </div>
+                            @endif
                         </div>
                         <!-- .card-inner-group -->
                     </div>

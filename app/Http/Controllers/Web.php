@@ -45,7 +45,7 @@ class Web extends Controller
                 ['name' => 'on_off', 'config' =>  0],
                 ['name' => 'app', 'config' =>  0],
                 // TODO نسخه
-                ['name' => 'v', 'config' =>  'Alavi Version 0.9.0'],
+                ['name' => 'v', 'config' =>  'Alavi Version 0.9.2'],
             ]);
             return redirect('/admin/register')->with('setup' , true);
         }
@@ -78,6 +78,13 @@ class Web extends Controller
     {
         $u_data = User::where('admin' , 0)->orderByDesc('score')->get();
         return view('member.all', compact('u_data'));
+
+    }
+
+    public function member_chair()
+    {
+        $u_data = User::where('admin' , 0)->orderByDesc('score')->get();
+        return view('member.chairs', compact('u_data'));
 
     }
 
