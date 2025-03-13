@@ -127,7 +127,7 @@ class Web extends Controller
             $user = User::find($request->user()->id);
             $n_true = $user->n_true + 1;
             $n_false = $user->n_false;
-            $score = ($n_true - ($n_false / 4)) * 10;
+            $score = User::find($request->user()->score) + 10;
             User::find($request->user()->id)->update([
                 'n_true' => $n_true,
                 'score' => $score,
@@ -143,7 +143,7 @@ class Web extends Controller
             $user = User::find($request->user()->id);
             $n_true = $user->n_true;
             $n_false = $user->n_false + 1;
-            $score = ($n_true - ($n_false / 4)) * 10;
+            $score = User::find($request->user()->score) - 10;
             User::find($request->user()->id)->update([
                 'n_false' => $n_false,
                 'score' => $score,
