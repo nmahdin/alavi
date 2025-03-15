@@ -100,28 +100,34 @@ class Web extends Controller
                     }
                     $qustions = $request->user()->random;
                     $dor = AdminConfigs::where('name' , 'dor')->first()->config;
-                    $wp = false;
+                    $wp = 0;
 //                    dd('rr');
+                    $f = $current_dor*$dor;
+                    $q = explode('.', $qustions);
+                    $new_qustions = explode('.', $qustions);
 
-                    while ($wp == false) {
-                        $q = explode('.', $qustions);
-                        $new_qustions = explode('.', $qustions);
-                        unset($new_qustions[0]);
+                    while ($wp <= 100) {
 
-                        $new_qustions = join('.', $new_qustions);
+                        unset($new_qustions[$wp]);
+
+
 //                        dd($new_qustions);
-                        User::find($request->user()->id)->update(['random' => $new_qustions]);
 
-                        if ($q[0] > $current_dor*$dor) {
-                            $wp = true;
+                        $wp++;
+//                        dd($wp);
+                        if ($new_qustions[$wp] > $f) {
+                            $wp = 200;
                         }
 //                        dd($wp);
                     }
+//                    dd($new_qustions);
+                    $po = array_key_first($new_qustions);
+                    $new_qustions = join('.', $new_qustions);
+                    User::find($request->user()->id)->update(['random' => $new_qustions]);
 
-                    dd($q);
-                    $q = Questions::where('number' ,$q[0])->get();
-
-                    return view('member.showQuestions', ['question' => $q]);
+                    $q = Questions::where('number' ,$po)->get();
+//dd($q);
+                    return view('member.showQuestions', ['question' => $q[0]]);
                 } else {
                     return view('member.end', ['user' => $request->user() , 'status' => 'end']);
                 }
@@ -150,7 +156,7 @@ class Web extends Controller
             $n_true = $user->n_true + 1;
             $n_true_d = $user->n_true_d + 1;
             $n_false = $user->n_false;
-            $score = User::find($request->user()->score) + 10;
+            $score = User::find($request->user())->first()->score + 10;
             User::find($request->user()->id)->update([
                 'n_true' => $n_true,
                 'n_true_d' => $n_true_d,
@@ -168,9 +174,10 @@ class Web extends Controller
             $n_true = $user->n_true;
             $n_false = $user->n_false + 1;
             $n_false_d = $user->n_false_d + 1;
-            $score = User::find($request->user()->score);
-            dd($score);
-            $score = User::find($request->user()->score) - 3;
+            $score = User::find($request->user())->first()->score;
+            $score = $score - 3;
+//            dd($score);
+//            $score = User::find($request->user()->score) - 3;
 
             User::find($request->user()->id)->update([
                 'n_false' => $n_false,
