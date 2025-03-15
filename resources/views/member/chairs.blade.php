@@ -97,7 +97,8 @@ $n = User::where('admin', 0)->count()
                                                     "
                                                          style="margin-right: 4px; border-radius: 7px; padding: 30px !important; color: white; font-family: sans-serif">
                                                         @if($i < 10)
-                                                            {{ '0'.$i }}
+                                                            {{ '00'.$i }}
+                                                            @else
                                                         @else
                                                             {{ $i }}
                                                         @endif

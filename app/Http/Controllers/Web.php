@@ -102,7 +102,16 @@ class Web extends Controller
                     $dor = AdminConfigs::where('name' , 'dor')->first()->config;
                     $wp = 0;
 //                    dd('rr');
-                    $f = $current_dor*$dor;
+                    if ($current_dor = 1) {
+                        $f = 15;
+                    } elseif ($current_dor = 2) {
+                        $f = 30;
+                    } elseif ($current_dor = 3) {
+                        $f = 45;
+                    } elseif ($current_dor = 4) {
+                        $f = 60;
+                    }
+//                    $f = $current_dor*$dor;
                     $q = explode('.', $qustions);
                     $new_qustions = explode('.', $qustions);
 
