@@ -98,41 +98,43 @@ class Web extends Controller
                     if ($current_dor == $user_dor) {
                         return view('member.end', ['user' => $request->user() , 'status' => $user_dor]);
                     }
+
+                    $qustions = $request->user()->random;
+                    $q = explode('.', $qustions);
+                    $new_qustions = explode('.', $qustions);
+                    unset($new_qustions[0]);
+                    $new_qustions = join('.', $new_qustions);
+                    User::find($request->user()->id)->update(['random' => $new_qustions]);
+
                     $qustions = $request->user()->random;
                     $dor = AdminConfigs::where('name' , 'dor')->first()->config;
                     $wp = 0;
 //                    dd('rr');
-                    if ($current_dor = 1) {
-                        $f = 15;
-                    } elseif ($current_dor = 2) {
-                        $f = 30;
-                    } elseif ($current_dor = 3) {
-                        $f = 45;
-                    } elseif ($current_dor = 4) {
-                        $f = 60;
-                    }
+//                    if ($current_dor = 1) {
+//
+//                    }
 //                    $f = $current_dor*$dor;
-                    $q = explode('.', $qustions);
-                    $new_qustions = explode('.', $qustions);
-
-                    while ($wp <= 100) {
-
-                        unset($new_qustions[$wp]);
-
-
-//                        dd($new_qustions);
-
-                        $wp++;
-//                        dd($wp);
-                        if ($new_qustions[$wp] > $f) {
-                            $wp = 200;
-                        }
-//                        dd($wp);
-                    }
-//                    dd($new_qustions);
-                    $po = array_key_first($new_qustions);
-                    $new_qustions = join('.', $new_qustions);
-                    User::find($request->user()->id)->update(['random' => $new_qustions]);
+//                    $q = explode('.', $qustions);
+//                    $new_qustions = explode('.', $qustions);
+//
+//                    while ($wp <= 100) {
+//
+//                        unset($new_qustions[$wp]);
+//
+//
+////                        dd($new_qustions);
+//
+//                        $wp++;
+////                        dd($wp);
+//                        if ($new_qustions[$wp] > $f) {
+//                            $wp = 200;
+//                        }
+////                        dd($wp);
+//                    }
+////                    dd($new_qustions);
+//                    $po = array_key_first($new_qustions);
+//                    $new_qustions = join('.', $new_qustions);
+//                    User::find($request->user()->id)->update(['random' => $new_qustions]);
 
                     $q = Questions::where('number' ,$po)->get();
 //dd($q);
