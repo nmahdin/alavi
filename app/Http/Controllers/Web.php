@@ -99,13 +99,28 @@ class Web extends Controller
                         return view('member.end', ['user' => $request->user() , 'status' => $user_dor]);
                     }
                     $qustions = $request->user()->random;
-                    $q = explode('.', $qustions);
-                    $new_qustions = explode('.', $qustions);
-                    unset($new_qustions[0]);
-                    $new_qustions = join('.', $new_qustions);
-                    User::find($request->user()->id)->update(['random' => $new_qustions]);
+                    $dor = AdminConfigs::where('name' , 'dor')->first()->config;
+                    $wp = false;
+//                    dd('rr');
 
-                    $q = Questions::find($q[0]);
+                    while ($wp == false) {
+                        $q = explode('.', $qustions);
+                        $new_qustions = explode('.', $qustions);
+                        unset($new_qustions[0]);
+
+                        $new_qustions = join('.', $new_qustions);
+//                        dd($new_qustions);
+                        User::find($request->user()->id)->update(['random' => $new_qustions]);
+
+                        if ($q[0] > $current_dor*$dor) {
+                            $wp = true;
+                        }
+//                        dd($wp);
+                    }
+
+                    dd($q);
+                    $q = Questions::where('number' ,$q[0])->get();
+
                     return view('member.showQuestions', ['question' => $q]);
                 } else {
                     return view('member.end', ['user' => $request->user() , 'status' => 'end']);
@@ -153,7 +168,10 @@ class Web extends Controller
             $n_true = $user->n_true;
             $n_false = $user->n_false + 1;
             $n_false_d = $user->n_false_d + 1;
+            $score = User::find($request->user()->score);
+            dd($score);
             $score = User::find($request->user()->score) - 3;
+
             User::find($request->user()->id)->update([
                 'n_false' => $n_false,
                 'n_false_d' => $n_false_d,
