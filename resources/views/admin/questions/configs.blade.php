@@ -38,7 +38,11 @@ $n = Questions::count()
                     <div class="invoice">
                         <div class="card invoice-wrap">
                             @if($app)
-                                @if($n > 1)
+                                @if($n >= 1)
+                                    <form action="{{ route('reset') }}">
+                                        <button class="btn btn-dim btn-primary" >صفر کردن تعداد جواب های درست و نادرست این دور</a>
+                                        </button>
+                                    </form>
                                     <h4>فعال سازی یا غیر فعال سازی دور ها:</h4>
                                     <br>
                                     <form id="edit-q1" action="{{ route('question.config.p') }}" method="post" class="">

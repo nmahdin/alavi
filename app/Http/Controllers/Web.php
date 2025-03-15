@@ -133,10 +133,12 @@ class Web extends Controller
         if ($request->gozine == $true) {
             $user = User::find($request->user()->id);
             $n_true = $user->n_true + 1;
+            $n_true_d = $user->n_true_d + 1;
             $n_false = $user->n_false;
             $score = User::find($request->user()->score) + 10;
             User::find($request->user()->id)->update([
                 'n_true' => $n_true,
+                'n_true_d' => $n_true_d,
                 'score' => $score,
                 'dor' => $user_dor,
                 'count' => $user_count,
@@ -150,9 +152,11 @@ class Web extends Controller
             $user = User::find($request->user()->id);
             $n_true = $user->n_true;
             $n_false = $user->n_false + 1;
-            $score = User::find($request->user()->score) - 10;
+            $n_false_d = $user->n_false_d + 1;
+            $score = User::find($request->user()->score) - 3;
             User::find($request->user()->id)->update([
                 'n_false' => $n_false,
+                'n_false_d' => $n_false_d,
                 'score' => $score,
                 'dor' => $user_dor,
                 'count' => $user_count,
@@ -195,7 +199,7 @@ class Web extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'number' => ['required', 'string', 'lowercase', 'max:255', 'unique:' . User::class],
+            'number' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'full_admin' => ['nullable'],
         ], [
@@ -253,5 +257,13 @@ class Web extends Controller
 
     public function ban() {
         return view('errors.access');
+    }
+
+    public function reset() {
+
+        User::query()->update(['n_true_d' => 0]);
+        User::query()->update(['n_false_d' => 0]);
+
+        return back();
     }
 }

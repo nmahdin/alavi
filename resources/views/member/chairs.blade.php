@@ -7,12 +7,13 @@
 <?php
 
 use \App\Models\User;
-$n = User::where('admin' , 0)->count()
+
+$n = User::where('admin', 0)->count()
 
 
 ?>
 
-{{ $i = 0 }}
+{{ $i = 1 }}
 {{ $count = \App\Models\AdminConfigs::where('name', 'chair_count')->first()->config }}
 {{ $column = \App\Models\AdminConfigs::where('name', 'chair_column')->first()->config }}
 
@@ -33,7 +34,7 @@ $n = User::where('admin' , 0)->count()
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em
-                                        class="icon ni ni-menu-alt-r"></em></a>
+                                            class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
 
@@ -60,32 +61,64 @@ $n = User::where('admin' , 0)->count()
 
                             @if($n !== 0)
 
-                                <div class="card-inner p-0">
-                                    <div class="nk-tb-list nk-tb-ulist">
+                                <div class="card card-preview">
+                                    <div class="card-inner">
 
+                                            @for($i = 0; $i <= $count; $i++)
+                                            <div class="d-flex justify-content-center mb-3">
+                                                @while($i%$column != 0)
 
+                                                    <div class="p-2
+                                                    @php
+                                                         if ($true = \App\Models\User::where('chair_number', $i)->first() == null) {
+                                                             $true = null;
+                                                         } else {
+                                                             $true = \App\Models\User::where('chair_number', $i)->first()->n_true_d;
+                                                         }
 
-                                                @while($i <= 20)
-                                            <div class="q-btn btn-group me-2">
-                                                <a id="b1" style="padding: 27px 40px 27px 40px;
-    border: 2px dashed #10a260;
-    border-radius: 10px;
-    background: #ffffff;
-    color: #009b5a;
-    transition: all 0.4s;
-    font-size: 1.8rem;
-    text-decoration: none;
-    display: inline-block;
-    margin: 4px;"  role="button" >01</a>
-                                                <br>
+                                                         if ($false = \App\Models\User::where('chair_number', $i)->first() == null) {
+                                                             $false = null;
+                                                         } else {
+                                                             $false = \App\Models\User::where('chair_number', $i)->first()->n_false_d;
+                                                         }
+
+                                                    @endphp
+                                                    @if($true == null & $false == null)
+                                                        bg-lighter
+                                                        @endif
+                                                    @if($true == 0 & $false == 0)
+                                                    bg-info
+                                                    @endif
+                                                    @if($true < $false )
+                                                    bg-danger
+                                                    @else
+                                                    bg-success
+                                                    @endif
+                                                    "
+                                                         style="margin-right: 4px; border-radius: 7px; padding: 30px !important; color: white; font-family: sans-serif">
+                                                        @if($i < 10)
+                                                            {{ '0'.$i }}
+                                                        @else
+                                                            {{ $i }}
+                                                        @endif
+                                                    </div>
+
                                                     <span style="display: none">{{ $i++ }}</span>
-                                            </div>
+
                                                 @endwhile
 
+                                            </div>
+                                            @endfor
 
 
 
                                     </div>
+                                </div>
+
+
+{{--                                <div class="card-inner p-0" style="margin-right: 20px">--}}
+
+
                                     <!-- .nk-tb-list -->
                                 </div>
                             @endif

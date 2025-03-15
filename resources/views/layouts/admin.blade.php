@@ -208,6 +208,16 @@
                                             <span class="nk-menu-text">تنظیمات عمومی</span>
                                         </a>
                                     </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('members.data') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">لیست شرکت کنندگان</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('member.chair') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">لیست صندلی ها</span>
+                                        </a>
+                                    </li>
 
                                     <!-- .nk-menu-item -->
                                 </ul>

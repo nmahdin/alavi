@@ -30,6 +30,10 @@ Route::get('/dashboard', function () {
 Route::get('/members', [Web::class , 'member_all'])->name('member.all');
 Route::get('/chairs', [Web::class , 'member_chair'])->name('member.chair');
 
+Route::get('/reset', [Web::class , 'reset'])->name('reset');
+
+
+
 Route::get('/q', [Web::class , 'show_questions'])->middleware('auth')->name('show.questions');
 Route::post('/check', [Web::class , 'check_questions'])->middleware('auth')->name('check');
 

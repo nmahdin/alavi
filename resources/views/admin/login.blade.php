@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label class="form-label" for="number">نام کاربری</label>
                                 <div class="form-control-wrap">
-                                    <input type="text" class="form-control form-control-lg @error('number') error @enderror" name="number" value="{{ old('number') }}" id="number" required autofocus autocomplete="username" placeholder="نام کابری وارد کنید">
+                                    <input type="text" class="form-control form-control-lg @error('number') error @enderror" name="number" value="{{ old('number') }}" id="number" required autofocus autocomplete="username" placeholder="نام کاربری وارد کنید">
                                     @error('number')
                                     <span id="fv-message-error" class="invalid">{{ $message }}</span>
                                     @enderror
