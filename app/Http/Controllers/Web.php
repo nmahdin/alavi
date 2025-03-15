@@ -136,7 +136,7 @@ class Web extends Controller
 //                    $new_qustions = join('.', $new_qustions);
 //                    User::find($request->user()->id)->update(['random' => $new_qustions]);
 
-                    $q = Questions::where('number' ,$po)->get();
+                    $q = Questions::where('number' ,$q[0])->get();
 //dd($q);
                     return view('member.showQuestions', ['question' => $q[0]]);
                 } else {
