@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('n_false')->default(0);
             $table->integer('n_true_d')->default(0);
             $table->integer('n_false_d')->default(0);
-            $table->string('random')->default(0);
+            $table->text('random')->default(0);
             $table->string('admin')->default(0);
             $table->string('full_admin')->default(0);
             $table->string('checker')->default(0);
